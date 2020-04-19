@@ -20,25 +20,16 @@ before_install:
   - export PATH="$(pwd):$PATH"
 
 stages:
-  - validate
   - init
   - plan
   - apply
 
 jobs:
   include:
-    - stage: validate
-      script:
-        - ls -la
-        - terraform validate
-
     - stage: init
       script:
-        - terraform init
-        - echo $(pwd)
         - ls -la
-      dependencies:
-          - validate
+        - terraform init
 
     - stage: plan
       script:
