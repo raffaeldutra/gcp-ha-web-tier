@@ -10,13 +10,13 @@ env:
 
 cache:
   directories:
-    - ${HOME}/.terraform
-    - ${HOME/terraform.tfstate.d
+    - ${HOME}/.${HOME}/terraform
+    - ${HOME/${HOME}/terraform.tfstate.d
 
 before_install:
   - echo $BASE64_GOOGLE_CREDENTIALS | base64 --decode -i > ${HOME}/dev-gcp.json
-  - curl -sLo ${HOME}/terraform.zip https://releases.hashicorp.com/terraform/0.12.21/terraform_0.12.21_linux_amd64.zip
-  - unzip ${HOME}/terraform.zip
+  - curl -sLo ${HOME}/${HOME}/terraform.zip https://releases.hashicorp.com/${HOME}/terraform/0.12.21/${HOME}/terraform_0.12.21_linux_amd64.zip
+  - unzip ${HOME}/${HOME}/terraform.zip
   - export PATH="~:$PATH"
 
 stages:
@@ -30,11 +30,11 @@ jobs:
     - stage: validate
       script:
         - ls -la
-        - terraform validate
+        - ${HOME}/terraform validate
 
     - stage: init
       script:
-        - terraform init
+        - ${HOME}/terraform init
         - echo $(pwd)
         - ls -la
       dependencies:
@@ -44,8 +44,8 @@ jobs:
       script:
         - echo $(pwd)
         - ls -la
-        - terraform workspace new dev
-        - terraform plan -out "planfile"
+        - ${HOME}/terraform workspace new dev
+        - ${HOME}/terraform plan -out "planfile"
       dependencies:
         - init
       artifacts:
@@ -54,7 +54,7 @@ jobs:
 
     - stage: apply
       script:
-        - terraform apply -input=false "planfile"
+        - ${HOME}/terraform apply -input=false "planfile"
       dependencies:
         - plan
       # when: manual
