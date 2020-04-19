@@ -33,7 +33,7 @@ jobs:
     - stage: init
       script:
         - docker container run -it -v ${PWD}:${PWD}/terraform -w ${PWD}/terraform hashicorp/terraform:light init
-        - ${pwd}
+        - echo ${pwd}
         - ls -la
       dependencies:
           - validate
