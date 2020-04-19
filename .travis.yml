@@ -8,6 +8,11 @@ env:
     - GOOGLE_CLOUD_KEYFILE_JSON=~/dev-gcp.json
     - GOOGLE_CREDENTIALS=~/dev-gcp.json
 
+cache:
+  directories:
+    - ${HOME}/.terraform
+    - ${HOME/terraform.tfstate.d
+
 before_install:
   - echo $BASE64_GOOGLE_CREDENTIALS | base64 --decode -i > ${HOME}/dev-gcp.json
   - docker pull hashicorp/terraform:light
@@ -28,11 +33,14 @@ jobs:
     - stage: init
       script:
         - docker container run -it -v ${PWD}:${PWD}/terraform -w ${PWD}/terraform hashicorp/terraform:light init
+        - ${pwd}
+        - ls -la
       dependencies:
           - validate
       artifacts:
         paths:
           - .terraform
+          - terraform.tfstate.d
 
     - stage: plan
       script:
