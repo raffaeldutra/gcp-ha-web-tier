@@ -1,0 +1,7 @@
+*.pdf
+.terraform
+*.log
+*.tfstate*
+blog/src/tf-modules
+terraform.html
+*.zip
