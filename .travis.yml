@@ -17,16 +17,16 @@ jobs:
   include:
     - stage: tf
       script:
-        - hashicorp/terraform:light --version
-        - hashicorp/terraform:light init
+        - docker run --rm hashicorp/terraform:light --version
+        - docker run --rm hashicorp/terraform:light init
 
     - stage: validate
       script:
-        - hashicorp/terraform:light validate
+        - docker run --rm hashicorp/terraform:light validate
 
     - stage: plan
       script:
-        - hashicorp/terraform:light plan -out "planfile"
+        - docker run --rm hashicorp/terraform:light plan -out "planfile"
       dependencies:
         - validate
       artifacts:
@@ -35,7 +35,7 @@ jobs:
 
     - stage: apply
       script:
-        - hashicorp/terraform:light apply -input=false "planfile"
+        - docker run --rm hashicorp/terraform:light apply -input=false "planfile"
       dependencies:
         - plan
       when: manual
