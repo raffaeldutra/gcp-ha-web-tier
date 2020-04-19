@@ -54,7 +54,7 @@ jobs:
 
     - stage: apply
       script:
-        - docker container run -it hashicorp/terraform:light apply -input=false "planfile"
+        - docker container run -it -v ${PWD}:${PWD}/terraform -w ${PWD}/terraform hashicorp/terraform:light apply -input=false "planfile"
       dependencies:
         - plan
       # when: manual
