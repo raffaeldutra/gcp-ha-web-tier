@@ -34,7 +34,7 @@ jobs:
     - stage: plan
       script:
         - echo $(pwd)
-        - ls -la
+        - ls -la .terraform
         - terraform workspace new dev
         - terraform plan -out "planfile"
       dependencies:
