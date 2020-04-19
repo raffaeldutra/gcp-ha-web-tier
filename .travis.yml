@@ -29,6 +29,7 @@ jobs:
   include:
     - stage: validate
       script:
+        - ls -la
         - terraform validate
 
     - stage: init
