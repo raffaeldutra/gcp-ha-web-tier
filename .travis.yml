@@ -7,8 +7,8 @@ before_install:
   - docker pull hashicorp/terraform:light
 
 stages:
-  - tf
   - validate
+  - init
   - plan
   - apply
 
@@ -19,8 +19,14 @@ jobs:
       script:
         - docker container run --rm hashicorp/terraform:light validate
 
+    - stage: init
+      script:
+        - docker container run --rm hashicorp/terraform:light init
+
     - stage: plan
       script:
+        - docker container run -it hashicorp/terraform:light new dev
+        - docker container run -it hashicorp/terraform:light select dev
         - docker container run -it hashicorp/terraform:light plan -out "planfile"
       dependencies:
         - validate
