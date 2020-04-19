@@ -21,7 +21,7 @@ jobs:
 
     - stage: plan
       script:
-        - docker container run -it hashicorp/terraform:light init
+        - docker container run -it -v ${PWD}:${PWD}/terraform -w ${PWD}/terraform hashicorp/terraform:light init
         - docker container run -it hashicorp/terraform:light workspace new dev
         - ls -la
         - docker container run -it hashicorp/terraform:light plan -out "planfile"
