@@ -10,8 +10,8 @@ env:
 
 cache:
   directories:
-    - ${HOME}/.terraform
-    - ${HOME/terraform.tfstate.d
+    - .terraform
+    - terraform.tfstate.d
 
 before_install:
   - echo $BASE64_GOOGLE_CREDENTIALS | base64 --decode -i > ${HOME}/dev-gcp.json
