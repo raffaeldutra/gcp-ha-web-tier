@@ -15,7 +15,11 @@ cache:
 
 before_install:
   - echo $BASE64_GOOGLE_CREDENTIALS | base64 --decode -i > ${HOME}/dev-gcp.json
-  - docker pull hashicorp/terraform:light
+    - curl -sLo /tmp/terraform.zip https://releases.hashicorp.com/terraform/0.12.20/terraform_0.12.20_linux_amd64.zip
+    - unzip /tmp/terraform.zip -d /tmp
+    - mkdir ~/bin
+    - mv /tmp/terraform ~/bin
+    - export PATH="~/bin:$PATH"
 
 stages:
   - validate
@@ -27,11 +31,11 @@ jobs:
   include:
     - stage: validate
       script:
-        - docker container run --rm hashicorp/terraform:light validate
+        - terraform validate
 
     - stage: init
       script:
-        - docker container run -it -v $(pwd):$(pwd)/terraform -w $(pwd)/terraform hashicorp/terraform:light init
+        - terraform init
         - echo $(pwd)
         - ls -la
       dependencies:
@@ -41,8 +45,8 @@ jobs:
       script:
         - echo $(pwd)
         - ls -la
-        - docker container run -it -v $(pwd):$(pwd)/terraform -w $(pwd)/terraform hashicorp/terraform:light workspace new dev
-        - docker container run -it -v $(pwd):$(pwd)/terraform -w $(pwd)/terraform hashicorp/terraform:light plan -out "planfile"
+        - terraform workspace new dev
+        - terraform plan -out "planfile"
       dependencies:
         - init
       artifacts:
@@ -51,7 +55,7 @@ jobs:
 
     - stage: apply
       script:
-        - docker container run -it -v $(pwd):$(pwd)/terraform -w $(pwd)/terraform hashicorp/terraform:light apply -input=false "planfile"
+        - terraform apply -input=false "planfile"
       dependencies:
         - plan
       # when: manual
