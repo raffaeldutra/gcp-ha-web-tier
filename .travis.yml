@@ -5,10 +5,9 @@ services:
 
 before_install:
   - docker pull hashicorp/terraform:light
-  - hashicorp/terraform:light --version
-  - hashicorp/terraform:light init
 
 stages:
+  - tf
   - validate
   - plan
   - apply
@@ -16,6 +15,11 @@ stages:
 
 jobs:
   include:
+    - stage: tf
+      script:
+        - hashicorp/terraform:light --version
+        - hashicorp/terraform:light init
+
     - stage: validate
       script:
         - hashicorp/terraform:light validate
