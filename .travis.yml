@@ -35,7 +35,7 @@ jobs:
       script:
         - echo $(pwd)
         - ls -la .terraform
-        - terraform workspace new dev
+        - terraform workspace new dev || terraform workspace select dev
         - terraform plan -out "planfile"
       dependencies:
         - init
