@@ -10,13 +10,13 @@ env:
 
 cache:
   directories:
-    - ${HOME}/.${HOME}/terraform
-    - ${HOME/${HOME}/terraform.tfstate.d
+    - ${HOME}/.terraform
+    - ${HOME/terraform.tfstate.d
 
 before_install:
   - echo $BASE64_GOOGLE_CREDENTIALS | base64 --decode -i > ${HOME}/dev-gcp.json
-  - curl -sLo ${HOME}/${HOME}/terraform.zip https://releases.hashicorp.com/${HOME}/terraform/0.12.21/${HOME}/terraform_0.12.21_linux_amd64.zip
-  - unzip ${HOME}/${HOME}/terraform.zip
+  - curl -sLo ${HOME}/terraform.zip https://releases.hashicorp.com/terraform/0.12.21/terraform_0.12.21_linux_amd64.zip
+  - unzip ${HOME}/terraform.zip
   - export PATH="~:$PATH"
 
 stages:
