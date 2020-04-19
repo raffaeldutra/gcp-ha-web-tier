@@ -23,7 +23,6 @@ jobs:
       script:
         - docker container run --rm hashicorp/terraform:light init
         - docker container run -it hashicorp/terraform:light workspace new dev
-        - docker container run -it hashicorp/terraform:light workspace select dev
         - docker container run -it hashicorp/terraform:light plan -out "planfile"
       dependencies:
         - validate
