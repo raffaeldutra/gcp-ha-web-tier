@@ -36,10 +36,6 @@ jobs:
         - ls -la
       dependencies:
           - validate
-      artifacts:
-        paths:
-          - .terraform
-          - terraform.tfstate.d
 
     - stage: plan
       script:
