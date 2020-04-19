@@ -30,11 +30,11 @@ jobs:
     - stage: validate
       script:
         - ls -la
-        - ${HOME}/terraform validate
+        - terraform validate
 
     - stage: init
       script:
-        - ${HOME}/terraform init
+        - terraform init
         - echo $(pwd)
         - ls -la
       dependencies:
@@ -44,8 +44,8 @@ jobs:
       script:
         - echo $(pwd)
         - ls -la
-        - ${HOME}/terraform workspace new dev
-        - ${HOME}/terraform plan -out "planfile"
+        - terraform workspace new dev
+        - terraform plan -out "planfile"
       dependencies:
         - init
       artifacts:
@@ -54,7 +54,7 @@ jobs:
 
     - stage: apply
       script:
-        - ${HOME}/terraform apply -input=false "planfile"
+        - terraform apply -input=false "planfile"
       dependencies:
         - plan
       # when: manual
