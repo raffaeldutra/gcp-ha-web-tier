@@ -39,7 +39,7 @@ jobs:
         - docker container run -it -v ${PWD}:${PWD}/terraform -w ${PWD}/terraform hashicorp/terraform:light workspace new dev
         - docker container run -it -v ${PWD}:${PWD}/terraform -w ${PWD}/terraform hashicorp/terraform:light plan -out "planfile"
       dependencies:
-        - validate
+        - init
       artifacts:
         paths:
           - planfile
