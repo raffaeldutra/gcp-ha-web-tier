@@ -43,6 +43,8 @@ jobs:
 
     - stage: plan
       script:
+        - echo $(pwd)
+        - ls -la
         - docker container run -it -v $(pwd):$(pwd)/terraform -w $(pwd)/terraform hashicorp/terraform:light workspace new dev
         - docker container run -it -v $(pwd):$(pwd)/terraform -w $(pwd)/terraform hashicorp/terraform:light plan -out "planfile"
       dependencies:
