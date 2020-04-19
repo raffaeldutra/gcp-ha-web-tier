@@ -3,7 +3,12 @@ language: go
 services:
   - docker
 
+env:
+  global:
+    - GOOGLE_CLOUD_KEYFILE_JSON=~/dev-gcp.json
+
 before_install:
+  - echo $GCLOUD_SERVICE_KEY_PRD | base64 --decode -i > ${HOME}/dev-gcp.json
   - docker pull hashicorp/terraform:light
 
 stages:
@@ -21,10 +26,14 @@ jobs:
 
     - stage: plan
       script:
+        - echo $BASE64_GOOGLE_CREDENTIALS | base64 --decode -i > ${HOME}/gcloud-service-key.json
+        - echo $BASE64_GOOGLE_CREDENTIALS
+        - echo $GOOGLE_CLOUD_KEYFILE_JSON
+        - cat ${HOME}/gcloud-service-key.json
         - docker container run -it -v ${PWD}:${PWD}/terraform -w ${PWD}/terraform hashicorp/terraform:light init
-        - docker container run -it hashicorp/terraform:light workspace new dev
+        - docker container run -it -v ${PWD}:${PWD}/terraform -w ${PWD}/terraform hashicorp/terraform:light workspace new dev
         - ls -la
-        - docker container run -it hashicorp/terraform:light plan -out "planfile"
+        - docker container run -it -v ${PWD}:${PWD}/terraform -w ${PWD}/terraform hashicorp/terraform:light plan -out "planfile"
       dependencies:
         - validate
       artifacts:
