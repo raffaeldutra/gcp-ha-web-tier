@@ -1,0 +1,37 @@
+---
+language: go
+services:
+  - docker
+
+before_install:
+  - docker pull hashicorp/terraform:light
+  - terraform --version
+  - terraform init
+
+stages:
+  - validate
+  - plan
+  - apply
+
+
+jobs:
+  include:
+    - stage: validate
+      script:
+        - terraform validate
+
+    - stage: plan
+      script:
+        - terraform plan -out "planfile"
+      dependencies:
+        - validate
+      artifacts:
+        paths:
+          - planfile
+
+    - stage: apply
+      script:
+        - terraform apply -input=false "planfile"
+      dependencies:
+        - plan
+      when: manual
