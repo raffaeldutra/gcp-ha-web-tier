@@ -28,12 +28,12 @@ jobs:
   include:
     - stage: init
       script:
-        - echo $GOOGLE_CLOUD_KEYFILE_JSON
+        - export
         - terraform init
 
     - stage: plan
       script:
-        - echo $GOOGLE_CLOUD_KEYFILE_JSON
+        - export
         - terraform workspace new dev || terraform workspace select dev
         - terraform plan
       dependencies:
@@ -41,7 +41,7 @@ jobs:
 
     - stage: apply
       script:
-        - export $GOOGLE_CLOUD_KEYFILE_JSON
+        - export
         - terraform apply -auto-approve
       dependencies:
         - plan
