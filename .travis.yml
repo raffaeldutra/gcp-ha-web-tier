@@ -28,7 +28,7 @@ jobs:
   include:
     - stage: init
       script:
-          - export
+        - export
         - terraform init
 
     - stage: plan
@@ -39,9 +39,9 @@ jobs:
       dependencies:
         - init
 
-deploy:
-  script:
-    - export
-    - terraform apply -auto-approve
-  dependencies:
-    - plan
+    - stage: apply
+      script:
+        - export
+        - terraform apply -auto-approve
+      dependencies:
+        - plan
