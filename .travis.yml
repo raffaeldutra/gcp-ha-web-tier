@@ -5,8 +5,8 @@ services:
 
 env:
   global:
-    - GOOGLE_CLOUD_KEYFILE_JSON=~/dev-gcp.json
-    - GOOGLE_CREDENTIALS=~/dev-gcp.json
+    - GOOGLE_CLOUD_KEYFILE_JSON=${HOME}/dev-gcp.json
+    - GOOGLE_CREDENTIALS=${GOOGLE_CLOUD_KEYFILE_JSON}
 
 cache:
   directories:
@@ -34,6 +34,7 @@ jobs:
     - stage: plan
       script:
         - echo $(pwd)
+        - echo $GOOGLE_CLOUD_KEYFILE_JSON
         - ls -la .terraform
         - terraform workspace new dev || terraform workspace select dev
         - terraform plan -out "planfile"
