@@ -37,16 +37,16 @@ jobs:
         - echo $GOOGLE_CLOUD_KEYFILE_JSON
         - ls -la .terraform
         - terraform workspace new dev || terraform workspace select dev
-        - terraform plan -out "planfile"
+        - terraform plan
       dependencies:
         - init
-      artifacts:
-        paths:
-          - planfile
+      # artifacts:
+      #   paths:
+      #     - planfile
 
     - stage: apply
       script:
-        - terraform apply -input=false "planfile"
+        - terraform apply
       dependencies:
         - plan
       # when: manual
