@@ -41,7 +41,7 @@ jobs:
 
     - stage: apply
       script:
-        - echo $GOOGLE_CLOUD_KEYFILE_JSON
+        - export $GOOGLE_CLOUD_KEYFILE_JSON
         - terraform apply -auto-approve
       dependencies:
         - plan
