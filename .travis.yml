@@ -28,25 +28,20 @@ jobs:
   include:
     - stage: init
       script:
-        - ls -la
+        - echo $GOOGLE_CLOUD_KEYFILE_JSON
         - terraform init
 
     - stage: plan
       script:
-        - echo $(pwd)
         - echo $GOOGLE_CLOUD_KEYFILE_JSON
-        - ls -la .terraform
         - terraform workspace new dev || terraform workspace select dev
         - terraform plan
       dependencies:
         - init
-      # artifacts:
-      #   paths:
-      #     - planfile
 
     - stage: apply
       script:
+        - echo $GOOGLE_CLOUD_KEYFILE_JSON
         - terraform apply -auto-approve
       dependencies:
         - plan
-      # when: manual
