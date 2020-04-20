@@ -5,7 +5,7 @@ services:
 
 env:
   global:
-    - GOOGLE_CLOUD_KEYFILE_JSON=$(cat ${HOME}/dev-gcp.json)
+    - GOOGLE_CLOUD_KEYFILE_JSON="${HOME}/dev-gcp.json"
     - GOOGLE_CREDENTIALS=${GOOGLE_CLOUD_KEYFILE_JSON}
 
 cache:
@@ -28,7 +28,7 @@ jobs:
   include:
     - stage: init
       script:
-        - export
+          - export
         - terraform init
 
     - stage: plan
@@ -39,9 +39,9 @@ jobs:
       dependencies:
         - init
 
-    - stage: apply
-      script:
-        - export
-        - terraform apply -auto-approve
-      dependencies:
-        - plan
+deploy:
+  script:
+    - export
+    - terraform apply -auto-approve
+  dependencies:
+    - plan
