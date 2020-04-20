@@ -46,7 +46,7 @@ jobs:
 
     - stage: apply
       script:
-        - terraform apply
+        - terraform apply -auto-approve
       dependencies:
         - plan
       # when: manual
